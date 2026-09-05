@@ -98,6 +98,16 @@ Two, both deliberate:
    intent, and it cannot survive a fluid layout.
 2. **An invisible node is omitted.** `1:408` is an "Email:" label coloured
    `#4a3a80` on the `#4a3a80` footer — it renders nothing.
+3. **The tab shadows are clipped on two sides.** In Figma every tab carries
+   `drop-shadow(0 4px 2px rgba(0,0,0,.25))`, which fell downwards onto the
+   panel and out to the left of the first tab. Each tab still has its own
+   shadow, but `.story-tabs` is extended 20px above the tabs, starts at the
+   panel's left edge and is `overflow: hidden` — so the shadow shows above and
+   between the tabs, and is cut off dead at the tabs' bottom edge and at the
+   panel's left edge.
+4. **The header aligns to the body.** Figma pads the header 40px from the frame
+   edge; it now shares the story canvas' `--u` unit and lines up with the cream
+   panel (x 80 and x 1361) at every viewport width.
 
 ## Not in the Figma file
 

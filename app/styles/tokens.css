@@ -95,9 +95,13 @@
   --radius-nav: 10px;
   --radius-lg: 20px;
 
-  /* ---------- Elevation ---------- */
-  --shadow-tab: 0 4px 2px rgba(0, 0, 0, 0.25);
-  --shadow-panel: 0 4px 4px rgba(0, 0, 0, 0.25);
+  /* ---------- Elevation ----------
+     One shadow for the tabs and the panel they sit on, so the
+     shading runs continuously down their shared left edge. Scaled
+     by --u, which the story canvas and the header each define;
+     the 1px here is the fallback for anything outside them. */
+  --u: 1px;
+  --shadow-card: 0 0 calc(6 * var(--u)) rgba(0, 0, 0, 0.25);
 
   /* ---------- Motion ---------- */
   --duration-menu: 320ms;

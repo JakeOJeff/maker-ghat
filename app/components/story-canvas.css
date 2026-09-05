@@ -38,7 +38,13 @@
   height: calc(4007 * var(--u));
   border-top-right-radius: calc(20 * var(--u));
   background-color: var(--color-neutral-50);
-  box-shadow: var(--shadow-panel);
+  /* The same shadow as the tabs, so the shading down the shared
+     left edge runs continuously from the first tab into the panel.
+     Figma's offset shadow is not used: it only ramps in 4px below
+     the join (leaving a pale gap), and its one distinct effect - a
+     shadow under the panel's bottom edge - falls behind the footer
+     and is never seen. */
+  box-shadow: var(--shadow-card);
 }
 
 /* =============================================================
@@ -47,22 +53,21 @@
    and bleeds into the panel below it.
    ============================================================= */
 
+/* The strip is extended 20px above the tabs and clipped, so each
+   tab's shadow can spill upwards and sideways but is cut off dead
+   on the tabs' bottom edge - no shadow reaches the panel below. */
 .story-tabs {
   position: absolute;
   left: 0;
-  top: calc((149 - var(--y0)) * var(--u));
+  top: calc((129 - var(--y0)) * var(--u));
   width: calc(1440 * var(--u));
-  height: calc(56 * var(--u));
-  /* The shadow is applied to the strip as a whole, so it traces the
-     outer silhouette of the tabs. Putting it on each tab instead
-     would darken the neighbour each one overlaps, which reads as a
-     gap between them. */
-  filter: drop-shadow(0 calc(3 * var(--u)) calc(3 * var(--u)) rgba(0, 0, 0, 0.22));
+  height: calc(76 * var(--u));
+  overflow: hidden;
 }
 
 .story-tabs__item {
   position: absolute;
-  top: 0;
+  top: calc(20 * var(--u));
   height: calc(56 * var(--u));
 }
 
@@ -72,6 +77,9 @@
   padding-block: calc(14 * var(--u));
   border-top-left-radius: calc(20 * var(--u));
   border-top-right-radius: calc(20 * var(--u));
+  /* Each tab carries its own shadow; the strip clips it at the
+     tabs' bottom edge so none of it reaches the panel below. */
+  box-shadow: var(--shadow-card);
   color: var(--color-black);
   font-size: calc(18 * var(--u));
   line-height: calc(28 * var(--u));
