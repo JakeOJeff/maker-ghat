@@ -1,3 +1,4 @@
+import StoryYears, { type YearEntry } from "./StoryYears";
 import "./story-canvas.css";
 
 type Tab = {
@@ -13,7 +14,20 @@ const TABS: Tab[] = [
   { label: "Volunteers & Alumni", modifier: "volunteers" },
 ];
 
-const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+/* Each year marker is a disclosure button. `content` holds the copy
+   filed under that year in the Figma file, one string per paragraph;
+   a year with no paragraphs renders as a plain, static marker. */
+const YEARS: YearEntry[] = [
+  { year: 2018, content: [] },
+  { year: 2019, content: [] },
+  { year: 2020, content: [] },
+  { year: 2021, content: [] },
+  { year: 2022, content: [] },
+  { year: 2023, content: [] },
+  { year: 2024, content: [] },
+  { year: 2025, content: [] },
+  { year: 2026, content: [] },
+];
 
 export default function StoryCanvas() {
   return (
@@ -93,24 +107,7 @@ export default function StoryCanvas() {
           </p>
         </div>
 
-        <ul className="story-years">
-          {YEARS.map((year) => (
-            <li
-              className={`story-years__item story-years__item--y${year}`}
-              key={year}
-            >
-              <span className="story-years__value">{year}</span>
-              <img
-                className="story-years__chevron"
-                src="/assets/chevron-year.svg"
-                alt=""
-                aria-hidden="true"
-                width={24}
-                height={24}
-              />
-            </li>
-          ))}
-        </ul>
+        <StoryYears years={YEARS} />
       </div>
     </section>
   );

@@ -116,5 +116,18 @@ Two, both deliberate:
 The frame contains a desktop layout only — there are no tablet or mobile
 artboards. The `1024px` hamburger was specified in the brief; everything else
 below 1440px is derived proportionally rather than designed. The dropdown
-chevrons in the header and on the year markers are drawn as in the design, but
-no open menu panel exists in the file, so none was invented.
+chevron in the header is drawn as in the design, but no open menu panel exists
+in the file, so none was invented.
+
+**The year markers are disclosure buttons.** Each marker in `StoryYears.tsx`
+toggles a panel holding the copy filed under that year in Figma. The frame
+draws the closed marker only, so the panel takes the marker's own fill, radius,
+padding and width, and animates on the shared `--duration-menu` /
+`--easing-menu` tokens. One panel is open at a time.
+
+The copy itself is **not yet in the repository**. The Figma MCP quota for this
+account is exhausted, so the per-year text could not be read out of the file.
+`YEARS` in `StoryCanvas.tsx` carries one entry per year with an empty
+`content` array, one string per paragraph. All nine markers are buttons and
+toggle regardless, so an empty year opens onto an empty panel; filling in the
+arrays is all that is needed.

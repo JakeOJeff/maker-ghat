@@ -271,16 +271,30 @@
    Block: story-years   (Figma 1:854 - 1:862 "Frame 1134-1142")
    ============================================================= */
 
+/* The marker is the positioned box; its own height is left to the
+   content so an open panel can extend below it. */
 .story-years__item {
   position: absolute;
+  width: calc(195 * var(--u));
+}
+
+/* An open marker lifts above its neighbours and the artwork. */
+.story-years__item--open {
+  z-index: 1;
+}
+
+/* The marker keeps the design's dimensions exactly; it is the
+   disclosure button for the year's panel. */
+.story-years__marker {
   display: flex;
   align-items: center;
   gap: calc(11 * var(--u));
-  width: calc(195 * var(--u));
+  width: 100%;
   height: calc(84 * var(--u));
   padding: calc(20 * var(--u));
   border-radius: calc(20 * var(--u));
   background-color: var(--color-neutral-100);
+  text-align: left;
 }
 
 .story-years__value {
@@ -294,10 +308,59 @@
   text-align: center;
 }
 
+/* The exported triangle points up; the design shows it pointing
+   down, and it turns back up while the panel is open. */
 .story-years__chevron {
   width: calc(24 * var(--u));
   height: calc(24 * var(--u));
   transform: rotate(180deg);
+  transition: transform var(--duration-menu) var(--easing-menu);
+}
+
+.story-years__marker[aria-expanded="true"] .story-years__chevron {
+  transform: rotate(0deg);
+}
+
+/* ---- Disclosure panel ----
+   Not drawn in the Figma frame, which shows the closed marker only,
+   so the panel reuses the marker's own fill, radius and padding. */
+.story-years__panel {
+  overflow: hidden;
+  max-height: 0;
+  visibility: hidden;
+  transition: max-height var(--duration-menu) var(--easing-menu),
+    visibility var(--duration-menu) var(--easing-menu);
+}
+
+.story-years__panel--open {
+  max-height: calc(640 * var(--u));
+  visibility: visible;
+}
+
+.story-years__body {
+  margin-top: calc(8 * var(--u));
+  padding: calc(20 * var(--u));
+  border-radius: calc(20 * var(--u));
+  background-color: var(--color-neutral-100);
+  box-shadow: var(--shadow-card);
+  color: var(--color-primary-700);
+  font-size: calc(16 * var(--u));
+  line-height: calc(24 * var(--u));
+}
+
+.story-years__text + .story-years__text {
+  margin-top: calc(12 * var(--u));
+}
+
+/* The marker shows only the year; the button needs to say what it
+   does. Visible to screen readers, never drawn. */
+.story-years__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .story-years__item--y2018 { left: calc(458 * var(--u)); top: calc((1978 - var(--y0)) * var(--u)); }
