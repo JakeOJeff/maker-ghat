@@ -105,9 +105,11 @@ Two, both deliberate:
    panel's left edge and is `overflow: hidden` — so the shadow shows above and
    between the tabs, and is cut off dead at the tabs' bottom edge and at the
    panel's left edge.
-4. **The header aligns to the body.** Figma pads the header 40px from the frame
-   edge; it now shares the story canvas' `--u` unit and lines up with the cream
-   panel (x 80 and x 1361) at every viewport width.
+4. **The header tracks the body grid.** Figma pads the header 40px from the
+   frame edge, which on a wide screen strands it against the viewport while the
+   body sits centred. It now shares the story canvas' `--u` unit and its 1440
+   grid, keeping Figma's 40px inset — so the logo and nav still overhang the
+   cream panel by 40px, but follow the body rather than the window edge.
 
 ## Not in the Figma file
 
