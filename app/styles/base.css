@@ -13,6 +13,9 @@ html {
 }
 
 body {
+  /* Size container so the header can share the story canvas' --u unit
+     and line its margins up with the body panel. */
+  container-type: inline-size;
   margin: 0;
   background-color: var(--color-white);
   color: var(--color-primary-700);

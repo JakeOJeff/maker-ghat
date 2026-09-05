@@ -67,7 +67,6 @@
   padding-block: calc(14 * var(--u));
   border-top-left-radius: calc(20 * var(--u));
   border-top-right-radius: calc(20 * var(--u));
-  filter: drop-shadow(0 calc(4 * var(--u)) calc(2 * var(--u)) rgba(0, 0, 0, 0.25));
   color: var(--color-black);
   font-size: calc(18 * var(--u));
   line-height: calc(28 * var(--u));
