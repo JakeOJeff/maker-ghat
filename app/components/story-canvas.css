@@ -53,6 +53,11 @@
   top: calc((149 - var(--y0)) * var(--u));
   width: calc(1440 * var(--u));
   height: calc(56 * var(--u));
+  /* The shadow is applied to the strip as a whole, so it traces the
+     outer silhouette of the tabs. Putting it on each tab instead
+     would darken the neighbour each one overlaps, which reads as a
+     gap between them. */
+  filter: drop-shadow(0 calc(3 * var(--u)) calc(3 * var(--u)) rgba(0, 0, 0, 0.22));
 }
 
 .story-tabs__item {

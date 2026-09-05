@@ -86,6 +86,10 @@
   align-items: flex-start;
   justify-content: flex-end;
   width: 833px;
+  /* Cancel the last link's inline padding so the label itself, not
+     its hit area, lines up with the right edge of the body panel.
+     Unscaled, to match the link's own unscaled padding. */
+  margin-right: calc(-1 * var(--space-20));
 }
 
 .site-nav__item {
@@ -136,12 +140,15 @@
   .site-header {
     flex-wrap: wrap;
     align-items: center;
-    padding: var(--space-20) var(--space-20);
+    padding: var(--space-20) calc(80 * var(--u));
   }
 
   .site-header__toggle {
     display: flex;
     position: relative;
+    /* Pull the 26px bars out of the 48px touch target so the icon,
+       not the hit area, aligns with the body panel edge. */
+    margin-right: -11px;
   }
 
   .site-header__nav {
@@ -162,6 +169,7 @@
     flex-direction: column;
     align-items: stretch;
     width: auto;
+    margin-right: 0;
     padding-top: var(--space-10);
   }
 
@@ -175,13 +183,14 @@
   .site-nav__link--menu {
     justify-content: flex-start;
     height: auto;
-    padding: var(--space-10) var(--space-10);
+    /* No inline padding, so the labels line up with the logo. */
+    padding: var(--space-10) 0;
   }
 }
 
 @media (max-width: 768px) {
   .site-header {
-    padding: var(--space-14) var(--space-20);
+    padding: var(--space-14) calc(80 * var(--u));
   }
 
   .site-header__logo-image {
