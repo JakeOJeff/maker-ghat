@@ -204,6 +204,11 @@
 .story__illustration-image {
   width: 100%;
   height: 100%;
+  /* The section's copy sits on top of this image, so dragging to
+     select that text would otherwise sweep the illustration into
+     the selection and let it be dragged out as a file. */
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* ---- Section headings and copy, overlaid on the illustration ---- */

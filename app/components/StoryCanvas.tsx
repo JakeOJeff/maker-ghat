@@ -61,6 +61,7 @@ export default function StoryCanvas() {
             alt="An illustrated timeline of MakerGhat from 2018 to 2026: a dashed green path winds down the page, linking photographs of students building models, running workshops, teaching in classrooms and displaying printed publications, with hand-drawn doodles of a lightbulb, scissors, a magnifying glass, a map of India and a rocket along the way."
             width={1328}
             height={3145}
+            draggable={false}
           />
         </figure>
 
