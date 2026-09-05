@@ -1,0 +1,272 @@
+/* =============================================================
+   Block: site-footer   (Figma 1:390 "Group 426", y 3929 - 4504)
+
+   The skyline (1:393) runs from y 3929 and the purple field
+   (1:404 "Rectangle 26") starts at y 4013, so the two overlap by
+   14px with the purple painted on top. Column origins are the
+   Figma x positions of each column's boxes: 112 / 485 / 801 /
+   1072 on the 1440 frame.
+   ============================================================= */
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding-top: 5.8333%; /* 84 / 1440 - keeps the overlap on scaling */
+  color: var(--color-primary-50);
+}
+
+.site-footer__skyline {
+  position: absolute;
+  left: -0.2083%; /* -3 / 1440 */
+  top: 0;
+  width: 100.2313%; /* 1443.33 / 1440 */
+  height: auto;
+}
+
+.site-footer__body {
+  position: relative;
+  background-color: var(--color-primary-500);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 373px 316px 271px 240px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 83px 128px 75px 112px; /* content box top = 4096 */
+}
+
+.site-footer__column {
+  min-width: 0;
+}
+
+/* =============================================================
+   Column 1 - Connect with Us
+   ============================================================= */
+
+.site-footer__title {
+  color: var(--color-primary-50);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: var(--font-weight-h2);
+}
+
+.site-footer__about {
+  display: inline-block;
+  margin-top: var(--space-38); /* 4246 - (4096 + 112) */
+  margin-left: -10px; /* the pill starts at x 102, the title at 112 */
+  padding: var(--space-5) var(--space-10);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+}
+
+.site-footer__contact {
+  margin-top: 78px; /* 4362 - (4246 + 38) */
+  font-style: normal; /* <address> defaults to italic */
+}
+
+.site-footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  height: 34px;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+}
+
+.site-footer__contact-item + .site-footer__contact-item {
+  height: 28px;
+  margin-top: 1px; /* 4397 - (4362 + 34) */
+}
+
+.site-footer__contact-icon {
+  flex-shrink: 0;
+  width: 21px;
+  height: 21px;
+}
+
+/* =============================================================
+   Columns 2 and 3 - Resources and FAQs link lists
+   ============================================================= */
+
+.site-footer__heading {
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-heading);
+  line-height: var(--line-height-heading);
+  font-weight: var(--font-weight-heading);
+}
+
+.site-footer__column--resources .site-footer__heading {
+  margin-top: 15px; /* 4111 - 4096 */
+  margin-left: 12px; /* heading text sits at x 497 */
+}
+
+.site-footer__column--faqs .site-footer__heading {
+  margin-top: 15px;
+  margin-left: 8px; /* heading text sits at x 809 */
+}
+
+.site-footer__links {
+  margin-top: var(--space-20); /* 4159 - (4111 + 28) */
+}
+
+.site-footer__link {
+  display: block;
+  padding: var(--space-5) var(--space-10);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+}
+
+/* The FAQs column starts two pixels lower than Resources. */
+.site-footer__column--faqs .site-footer__links {
+  margin-top: 22px; /* 4161 - (4111 + 28) */
+}
+
+/* Two rows in the design drift off the even 38px rhythm. */
+.site-footer__links > li:nth-child(4) {
+  margin-top: 1px; /* Resources: 4274 rather than 4273 */
+}
+
+.site-footer__column--faqs .site-footer__links > li:nth-child(4) {
+  margin-top: 4px; /* FAQs: 4279 rather than 4275 */
+}
+
+/* =============================================================
+   Column 4 - brand, newsletter, social, licence
+   ============================================================= */
+
+.site-footer__column--brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-footer__brand {
+  position: relative;
+  width: 170px;
+  height: 79px;
+  margin-top: 3px; /* 4099 - 4096 */
+  margin-left: 70px; /* logo sits at x 1142 */
+}
+
+.site-footer__brand-hand {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 79.847px;
+  height: 78.984px;
+}
+
+.site-footer__brand-wordmark {
+  position: absolute;
+  left: 64.84px;
+  top: 5.29px;
+  width: 105.178px;
+  height: 57.413px;
+}
+
+.site-footer__subscribe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 44px;
+  margin-top: 53px; /* 4231 - (4099 + 79) */
+  border-radius: var(--radius-lg);
+  background-color: var(--color-secondary-500);
+  color: var(--color-white);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+}
+
+.site-footer__divider {
+  width: 240px;
+  height: 3px;
+  margin-top: 19.5px; /* stroke centre at 4296 */
+}
+
+.site-footer__social {
+  width: 120px;
+  height: 23px;
+  margin-top: 22.5px; /* 4320 */
+  margin-left: 119px; /* x 1191 */
+}
+
+.site-footer__licence {
+  width: 493px;
+  margin-top: var(--space-28); /* 4371 - (4320 + 23) */
+  margin-left: -243px; /* the block starts at x 829 and is right-aligned */
+  padding: var(--space-5) var(--space-10);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  text-align: right;
+}
+
+/* =============================================================
+   Tablet
+   ============================================================= */
+
+@media (max-width: 1024px) {
+  .site-footer__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 32px;
+    padding: 56px var(--space-40) 64px;
+  }
+
+  .site-footer__column--resources .site-footer__heading,
+  .site-footer__column--faqs .site-footer__heading {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .site-footer__brand,
+  .site-footer__social {
+    margin-left: 0;
+  }
+
+  .site-footer__brand {
+    margin-top: 0;
+  }
+
+  .site-footer__licence {
+    width: auto;
+    margin-left: 0;
+    padding-inline: 0;
+    text-align: left;
+  }
+
+  .site-footer__contact {
+    margin-top: var(--space-40);
+  }
+}
+
+/* =============================================================
+   Mobile
+   ============================================================= */
+
+@media (max-width: 768px) {
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding: 40px var(--space-20) 48px;
+  }
+
+  .site-footer__title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+
+  .site-footer__about,
+  .site-footer__link {
+    margin-left: 0;
+    padding-inline: 0;
+  }
+
+  .site-footer__subscribe,
+  .site-footer__divider {
+    width: 100%;
+    max-width: 320px;
+  }
+}

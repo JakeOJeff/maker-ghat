@@ -1,0 +1,109 @@
+/* =============================================================
+   Design tokens - extracted verbatim from the Figma variables
+   of "MG Our Story" (file 3zWPpfgDZLYeNyOFRwX6gO, node 1:311).
+   ============================================================= */
+
+:root {
+  /* ---------- Colour: Primary ---------- */
+  --color-primary-700: #362c5f;
+  --color-primary-500: #4a3a80;
+  --color-primary-300: #776ba0;
+  --color-primary-50: #f1eef9;
+
+  /* ---------- Colour: Secondary ---------- */
+  --color-secondary-600: #d56b4e;
+  --color-secondary-500: #f1805e;
+  --color-secondary-400: #f1866a;
+  --color-secondary-50: #fdeae5;
+
+  /* ---------- Colour: Green ---------- */
+  --color-green-600: #58ad6f;
+  --color-green-500: #66c67f;
+
+  /* ---------- Colour: Yellow ---------- */
+  --color-yellow-500: #ffd150;
+  --color-yellow-100: #fff3cc;
+
+  /* ---------- Colour: Neutrals ---------- */
+  --color-neutral-600: #a88444;
+  --color-neutral-500: #cca255;
+  --color-neutral-300: #e0c695;
+  --color-neutral-200: #ead8b5;
+  --color-neutral-100: #f4ead5;
+  --color-neutral-50: #f9f4e8;
+
+  /* ---------- Colour: Base ---------- */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-ink: #060606;
+
+  /* ---------- Typography: families ---------- */
+  --font-heading: var(--font-parkinsans), "Parkinsans", "Trebuchet MS", sans-serif;
+  --font-body: var(--font-outfit), "Outfit", "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* ---------- Typography: Heading/H2 ---------- */
+  --font-size-h2: 48px;
+  --line-height-h2: 56px;
+  --font-weight-h2: 700;
+
+  /* ---------- Typography: Heading/H3 ---------- */
+  --font-size-h3: 36px;
+  --line-height-h3: 44px;
+  --font-weight-h3: 600;
+
+  /* ---------- Typography: Heading/Heading ---------- */
+  --font-size-heading: 20px;
+  --line-height-heading: 28px;
+  --font-weight-heading: 600;
+
+  /* ---------- Typography: Body/Large ---------- */
+  --font-size-lg: 18px;
+  --line-height-lg: 28px;
+  --font-weight-regular: 400;
+
+  /* ---------- Typography: Body/Body ---------- */
+  --font-size-body: 18px;
+  --line-height-body: 24px;
+  --font-weight-semibold: 600;
+
+  /* ---------- Typography: Body/Regular ---------- */
+  --font-size-md: 16px;
+  --line-height-md: 24px;
+
+  /* ---------- Typography: Body/small ---------- */
+  --font-size-sm: 14px;
+  --line-height-sm: 20px;
+
+  /* ---------- Spacing ---------- */
+  --space-5: 5px;
+  --space-10: 10px;
+  --space-11: 11px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-30: 30px;
+  --space-38: 38px;
+  --space-40: 40px;
+  --space-42: 42px;
+  --space-49: 49px;
+  --space-68: 68px;
+  --space-80: 80px;
+
+  /* ---------- Radius ---------- */
+  --radius-nav: 10px;
+  --radius-lg: 20px;
+
+  /* ---------- Elevation ---------- */
+  --shadow-tab: 0 4px 2px rgba(0, 0, 0, 0.25);
+  --shadow-panel: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  /* ---------- Motion ---------- */
+  --duration-menu: 320ms;
+  --easing-menu: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---------- Canvas geometry (Figma frame 1:311) ---------- */
+  --canvas-width: 1440;   /* design frame width, in design px  */
+  --header-height: 109.459; /* measured height of the site header */
+}

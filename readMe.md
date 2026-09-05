@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MakerGhat — Our Story
 
-## Getting Started
-
-First, run the development server:
+A pixel-accurate Next.js implementation of the "Our Story" page from Figma
+(file `3zWPpfgDZLYeNyOFRwX6gO`, frame `1:311` — 1440 × 4503).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build
+npm start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js App Router + hand-written CSS. There is **no CSS framework** — Tailwind
+was removed from the scaffold (`postcss.config.mjs` is empty and the Tailwind
+packages are gone from `package.json`). The only JavaScript on the page is the
+nav toggle in `SiteHeader`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fonts are the two families used in the Figma file, self-hosted through
+`next/font/google`: **Parkinsans** (headings) and **Outfit** (body).
 
-## Learn More
+## Layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  layout.tsx                    fonts + document shell
+  page.tsx                      composes the three blocks
+  styles/tokens.css             :root design tokens, taken from Figma variables
+  styles/base.css               reset
+  components/
+    SiteHeader.tsx  site-header.css    header + hamburger  (Figma 1:374)
+    StoryCanvas.tsx story-canvas.css   tabs, hero, story    (Figma 1:311)
+    SiteFooter.tsx  site-footer.css    footer               (Figma 1:390)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Class names follow BEM (`block__element--modifier`). Every colour, font size,
+line height, weight, spacing step, radius and shadow comes from a `:root`
+custom property in `styles/tokens.css`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### The story canvas and `--u`
 
-## Deploy on Vercel
+The story section is one interlocking composition: a dashed green path threads
+between the photographs, the doodles and the year markers, so it cannot be
+reflowed into a column without redrawing the artwork.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+It is therefore laid out on a fixed 1440-wide stage in which every coordinate,
+size and font size is expressed in **`--u`, one design pixel**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```css
+--u: min(1px, 100cqw / 1440);
+```
+
+At 1440px and wider `--u` is exactly `1px`, so the render is 1:1 with Figma.
+Below that, every value shrinks by the same factor and the composition stays
+proportionally identical at any width. Coordinates are written as literal Figma
+numbers (`left: calc(133 * var(--u))`) so each rule is traceable to the design.
+
+The header and footer are ordinary reflowing components and adapt at the
+`1024px` and `768px` breakpoints.
+
+## Assets
+
+`public/assets/` holds the artwork. The SVGs (logo, chevrons, skyline, footer
+mark, icons) are Figma exports used as-is. The two raster assets are exact crops
+of the 1:1 page render, taken at their Figma coordinates:
+
+| File | Figma node | Region |
+| --- | --- | --- |
+| `hero-3d-printer.jpg` | `1:366` | x 80, y 391, 1281 × 393 |
+| `story-illustration.jpg` | timeline composition | x 33, y 784, 1328 × 3145 |
+
+The illustration starts at x 33 rather than at the panel edge because the
+paper-plane doodle in "Group 424" overhangs the cream panel. Every text block
+and year marker was knocked out of that crop and is rendered as real HTML on
+top, so all copy stays selectable, translatable and screen-reader accessible.
+
+Both are regenerated from the committed source render with:
+
+```bash
+npm run build:assets     # scripts/build-figma-assets.mjs
+```
+
+`public/assets/raw/` holds the original Figma exports the crops are derived
+from. They are kept because the Figma MCP asset URLs expire after about seven
+days, but they are **not used by the page** — around 40MB of unreferenced files
+currently sit inside `public/`, where Next.js serves them. Moving that folder
+somewhere outside `public/` (for example `design/figma-raw/`) would keep the
+provenance without shipping it.
+
+## Deviations from the Figma file
+
+Two, both deliberate:
+
+1. **The footer is full-bleed.** In Figma the purple rectangle (`1:404`) is
+   `x: -8, w: 1443`, so it stops 5px short of the 1440 frame and leaves a white
+   sliver at the right edge. That reads as an artboard artefact rather than
+   intent, and it cannot survive a fluid layout.
+2. **An invisible node is omitted.** `1:408` is an "Email:" label coloured
+   `#4a3a80` on the `#4a3a80` footer — it renders nothing.
+
+## Not in the Figma file
+
+The frame contains a desktop layout only — there are no tablet or mobile
+artboards. The `1024px` hamburger was specified in the brief; everything else
+below 1440px is derived proportionally rather than designed. The dropdown
+chevrons in the header and on the year markers are drawn as in the design, but
+no open menu panel exists in the file, so none was invented.

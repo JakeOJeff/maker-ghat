@@ -1,0 +1,182 @@
+/* =============================================================
+   Block: site-header   (Figma 1:374 "Frame 269", 1440 x 109.459)
+   ============================================================= */
+
+.site-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-30) var(--space-40) var(--space-20);
+  background-color: var(--color-white);
+}
+
+.site-header__logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.site-header__logo-image {
+  width: 128px;
+  height: 59.459px;
+}
+
+/* ---- Hamburger: hidden on desktop, shown from 1024px down ---- */
+.site-header__toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-nav);
+}
+
+.site-header__burger,
+.site-header__burger::before,
+.site-header__burger::after {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background-color: var(--color-primary-500);
+  transition: transform var(--duration-menu) var(--easing-menu),
+    opacity var(--duration-menu) var(--easing-menu);
+}
+
+.site-header__burger::before,
+.site-header__burger::after {
+  content: "";
+  position: absolute;
+}
+
+.site-header__burger::before {
+  transform: translateY(-8px);
+}
+
+.site-header__burger::after {
+  transform: translateY(8px);
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__burger {
+  background-color: transparent;
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__burger::before {
+  transform: rotate(45deg);
+}
+
+.site-header__toggle[aria-expanded="true"] .site-header__burger::after {
+  transform: rotate(-45deg);
+}
+
+/* =============================================================
+   Block: site-nav   (Figma 1:374 nav group, width 833)
+   ============================================================= */
+
+.site-nav {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 833px;
+}
+
+.site-nav__item {
+  margin-right: -12px;
+}
+
+.site-nav__item:last-child {
+  margin-right: 0;
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  height: 47px;
+  padding: 9px var(--space-20);
+  border-radius: var(--radius-nav);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+}
+
+.site-nav__link--wide {
+  height: 48px;
+  padding-inline: var(--space-28);
+}
+
+.site-nav__link--menu {
+  height: 48px;
+  padding-block: var(--space-10);
+}
+
+.site-nav__chevron {
+  width: 11px;
+  height: 8px;
+  transform: rotate(180deg);
+}
+
+/* =============================================================
+   Tablet + mobile: collapse the links behind the hamburger
+   ============================================================= */
+
+@media (max-width: 1024px) {
+  .site-header {
+    flex-wrap: wrap;
+    align-items: center;
+    padding: var(--space-20) var(--space-20);
+  }
+
+  .site-header__toggle {
+    display: flex;
+    position: relative;
+  }
+
+  .site-header__nav {
+    flex-basis: 100%;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--duration-menu) var(--easing-menu),
+      visibility var(--duration-menu) var(--easing-menu);
+    visibility: hidden;
+  }
+
+  .site-header__nav--open {
+    max-height: 480px;
+    visibility: visible;
+  }
+
+  .site-nav {
+    flex-direction: column;
+    align-items: stretch;
+    width: auto;
+    padding-top: var(--space-10);
+  }
+
+  .site-nav__item,
+  .site-nav__item:last-child {
+    margin-right: 0;
+  }
+
+  .site-nav__link,
+  .site-nav__link--wide,
+  .site-nav__link--menu {
+    justify-content: flex-start;
+    height: auto;
+    padding: var(--space-10) var(--space-10);
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: var(--space-14) var(--space-20);
+  }
+
+  .site-header__logo-image {
+    width: 96px;
+    height: 44.594px;
+  }
+}
