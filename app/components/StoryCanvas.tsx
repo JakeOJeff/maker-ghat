@@ -18,7 +18,11 @@ const TABS: Tab[] = [
    filed under that year in Figma (Frame 1114 - 1133). 2026 is set as
    a plain paragraph there, the rest as bulleted lists. */
 const YEARS: YearEntry[] = [
-  { year: 2018, kind: "list", items: [] },
+  {
+    year: 2018,
+    kind: "list",
+    items: ["MakerGhat launches its first makerspace in Powai, Mumbai"],
+  },
   {
     year: 2019,
     kind: "list",

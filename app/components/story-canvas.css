@@ -403,6 +403,12 @@
 }
 
 .story-years__item--y2018 { left: calc(458 * var(--u)); top: calc((1978 - var(--y0)) * var(--u)); }
+
+/* Every year frame is 400 wide except 2018's, which Figma sizes to
+   310 — which is what wraps its line after "first". */
+.story-years__item--y2018 .story-years__panel {
+  width: calc(310 * var(--u));
+}
 .story-years__item--y2019 { left: calc(812 * var(--u)); top: calc((1972 - var(--y0)) * var(--u)); }
 .story-years__item--y2020 { left: calc(859 * var(--u)); top: calc((2274 - var(--y0)) * var(--u)); }
 .story-years__item--y2021 { left: calc(486 * var(--u)); top: calc((2288 - var(--y0)) * var(--u)); }

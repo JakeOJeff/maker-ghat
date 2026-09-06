@@ -123,19 +123,20 @@ in the file, so none was invented.
 filed under that year in Figma (Frame 1114 – 1133) — bulleted lists for
 2018 – 2025, a plain paragraph for 2026. One panel is open at a time.
 
-The panel is 400 wide against the 195-wide marker it hangs from, so it breaks
-out to the right; the copy is 18/28 `--color-primary-500` on
-`--color-neutral-200`, 15 padding, 20 radius, bullets as 4px dots at 11 with
-the text indented to 28 and 12 between items. Those numbers were measured off a
-screenshot of the year frames rather than read from the API, because the Figma
-MCP quota for this account is exhausted; the marker in the same screenshot
-measures 156 × 67 for a known 195 × 84, which fixes the scale at 1.25 and makes
-the rest exact. Rendered line breaks match the design's line for line.
+The panel hangs below its marker and breaks out to the right of it: 400 wide
+against the 195-wide marker for every year except 2018, whose frame Figma sizes
+to 310. The copy is 18/28 `--color-primary-500` on `--color-neutral-200`, 15
+padding, 20 radius, bullets as 4px dots at 11 with the text indented to 28 and
+12 between items.
+
+Those numbers were measured off screenshots of the year frames rather than read
+from the API, because the Figma MCP quota for this account is exhausted. The
+marker in each screenshot has known dimensions (195 × 84), which fixes the
+scale and makes the rest exact — the two shots were at different zooms and both
+resolve the marker to within 0.2px. Rendered line breaks match the design line
+for line, including 2018's, which only wraps after "first" because of that
+narrower frame.
 
 Opening animates `grid-template-rows` from `0fr` to `1fr`, so a one-line year
 and an eleven-line year open at the same rate rather than at a rate set by a
 `max-height` ceiling.
-
-**2018 has no copy yet.** It was cut off above the top of the screenshot, so
-its `items` array in `StoryCanvas.tsx` is empty and the panel opens onto an
-empty box. Everything else about it already works.
