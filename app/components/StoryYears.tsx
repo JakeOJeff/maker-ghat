@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 
-export type YearEntry = {
-  year: number;
-  /* The copy filed under that year in the Figma file, one string per
-     paragraph. */
-  content: string[];
-};
+/* Figma files each year's copy in a frame of its own, filed under the
+   year marker: eight are bulleted lists, 2026 is a plain paragraph. */
+export type YearEntry =
+  | { year: number; kind: "list"; items: string[] }
+  | { year: number; kind: "note"; text: string };
 
 type Props = {
   years: YearEntry[];
@@ -18,7 +17,8 @@ export default function StoryYears({ years }: Props) {
 
   return (
     <ul className="story-years">
-      {years.map(({ year, content }) => {
+      {years.map((entry) => {
+        const { year } = entry;
         const isOpen = openYear === year;
 
         return (
@@ -55,12 +55,20 @@ export default function StoryYears({ years }: Props) {
               }`}
               id={`story-year-panel-${year}`}
             >
-              <div className="story-years__body">
-                {content.map((paragraph, index) => (
-                  <p className="story-years__text" key={index}>
-                    {paragraph}
-                  </p>
-                ))}
+              <div className="story-years__clip">
+                <div className="story-years__body">
+                  {entry.kind === "list" ? (
+                    <ul className="story-years__list">
+                      {entry.items.map((item, index) => (
+                        <li className="story-years__bullet" key={index}>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="story-years__note">{entry.text}</p>
+                  )}
+                </div>
               </div>
             </div>
           </li>

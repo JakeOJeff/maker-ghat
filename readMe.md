@@ -119,15 +119,23 @@ below 1440px is derived proportionally rather than designed. The dropdown
 chevron in the header is drawn as in the design, but no open menu panel exists
 in the file, so none was invented.
 
-**The year markers are disclosure buttons.** Each marker in `StoryYears.tsx`
-toggles a panel holding the copy filed under that year in Figma. The frame
-draws the closed marker only, so the panel takes the marker's own fill, radius,
-padding and width, and animates on the shared `--duration-menu` /
-`--easing-menu` tokens. One panel is open at a time.
+**The year markers are disclosure buttons.** Each marker toggles the frame
+filed under that year in Figma (Frame 1114 – 1133) — bulleted lists for
+2018 – 2025, a plain paragraph for 2026. One panel is open at a time.
 
-The copy itself is **not yet in the repository**. The Figma MCP quota for this
-account is exhausted, so the per-year text could not be read out of the file.
-`YEARS` in `StoryCanvas.tsx` carries one entry per year with an empty
-`content` array, one string per paragraph. All nine markers are buttons and
-toggle regardless, so an empty year opens onto an empty panel; filling in the
-arrays is all that is needed.
+The panel is 400 wide against the 195-wide marker it hangs from, so it breaks
+out to the right; the copy is 18/28 `--color-primary-500` on
+`--color-neutral-200`, 15 padding, 20 radius, bullets as 4px dots at 11 with
+the text indented to 28 and 12 between items. Those numbers were measured off a
+screenshot of the year frames rather than read from the API, because the Figma
+MCP quota for this account is exhausted; the marker in the same screenshot
+measures 156 × 67 for a known 195 × 84, which fixes the scale at 1.25 and makes
+the rest exact. Rendered line breaks match the design's line for line.
+
+Opening animates `grid-template-rows` from `0fr` to `1fr`, so a one-line year
+and an eleven-line year open at the same rate rather than at a rate set by a
+`max-height` ceiling.
+
+**2018 has no copy yet.** It was cut off above the top of the screenshot, so
+its `items` array in `StoryCanvas.tsx` is empty and the panel opens onto an
+empty box. Everything else about it already works.

@@ -322,34 +322,73 @@
 }
 
 /* ---- Disclosure panel ----
-   Not drawn in the Figma frame, which shows the closed marker only,
-   so the panel reuses the marker's own fill, radius and padding. */
+   Measured off the year frames in Figma (Frame 1114 - 1133), which
+   are 400 wide against the 195-wide marker they hang from, so the
+   panel breaks out to the right of its marker.
+
+   0fr -> 1fr animates to the content's real height, so a one-line
+   year and an eleven-line year both open at the same rate. */
 .story-years__panel {
-  overflow: hidden;
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  width: calc(400 * var(--u));
   visibility: hidden;
-  transition: max-height var(--duration-menu) var(--easing-menu),
+  transition: grid-template-rows var(--duration-menu) var(--easing-menu),
     visibility var(--duration-menu) var(--easing-menu);
 }
 
 .story-years__panel--open {
-  max-height: calc(640 * var(--u));
+  grid-template-rows: 1fr;
   visibility: visible;
 }
 
-.story-years__body {
-  margin-top: calc(8 * var(--u));
-  padding: calc(20 * var(--u));
-  border-radius: calc(20 * var(--u));
-  background-color: var(--color-neutral-100);
-  box-shadow: var(--shadow-card);
-  color: var(--color-primary-700);
-  font-size: calc(16 * var(--u));
-  line-height: calc(24 * var(--u));
+.story-years__clip {
+  overflow: hidden;
+  min-height: 0;
 }
 
-.story-years__text + .story-years__text {
+.story-years__body {
   margin-top: calc(12 * var(--u));
+  padding: calc(15 * var(--u));
+  border-radius: calc(20 * var(--u));
+  background-color: var(--color-neutral-200);
+  color: var(--color-primary-500);
+  font-size: calc(18 * var(--u));
+  line-height: calc(28 * var(--u));
+  font-weight: var(--font-weight-regular);
+}
+
+/* The bullet is a 4px dot 11 in from the content edge, with the copy
+   indented to 28; drawn rather than list-style so both land exactly. */
+.story-years__bullet {
+  position: relative;
+  padding-left: calc(28 * var(--u));
+}
+
+.story-years__bullet::before {
+  content: "";
+  position: absolute;
+  left: calc(11 * var(--u));
+  top: calc(12 * var(--u));
+  width: calc(4 * var(--u));
+  height: calc(4 * var(--u));
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.story-years__bullet + .story-years__bullet {
+  margin-top: calc(12 * var(--u));
+}
+
+/* The marker shows only the year; the button needs to say what it
+   does. Visible to screen readers, never drawn. */
+.story-years__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* The marker shows only the year; the button needs to say what it

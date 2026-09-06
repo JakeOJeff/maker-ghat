@@ -14,19 +14,72 @@ const TABS: Tab[] = [
   { label: "Volunteers & Alumni", modifier: "volunteers" },
 ];
 
-/* Each year marker is a disclosure button. `content` holds the copy
-   filed under that year in the Figma file, one string per paragraph;
-   a year with no paragraphs renders as a plain, static marker. */
+/* Each year marker is a disclosure button; the copy is the frame
+   filed under that year in Figma (Frame 1114 - 1133). 2026 is set as
+   a plain paragraph there, the rest as bulleted lists. */
 const YEARS: YearEntry[] = [
-  { year: 2018, content: [] },
-  { year: 2019, content: [] },
-  { year: 2020, content: [] },
-  { year: 2021, content: [] },
-  { year: 2022, content: [] },
-  { year: 2023, content: [] },
-  { year: 2024, content: [] },
-  { year: 2025, content: [] },
-  { year: 2026, content: [] },
+  { year: 2018, kind: "list", items: [] },
+  {
+    year: 2019,
+    kind: "list",
+    items: [
+      "We secure our first institutional grant to expand maker-education",
+      "We receive our first individual grant to grow the program to 3 schools",
+    ],
+  },
+  {
+    year: 2020,
+    kind: "list",
+    items: [
+      "We respond to COVID with recovery-focused education initiatives",
+      "We launched virtual programs with VIDYA and Agastya Foundations",
+      "We opened a second makerspace in Thane",
+    ],
+  },
+  {
+    year: 2021,
+    kind: "list",
+    items: [
+      "We expanded maker-education programs to Tamil Nadu",
+      "We partnered with the JSW Foundation for our first CSR-led programs (the Museum of Solutions, Mumbai)",
+    ],
+  },
+  {
+    year: 2022,
+    kind: "list",
+    items: ["We launched statewide programs in Odisha"],
+  },
+  {
+    year: 2023,
+    kind: "list",
+    items: [
+      "We became official curriculum partner for NITI Aayog’s Atal Tinkering Labs (ATLs)",
+      "We opened makerspaces across districts in Tamil Nadu & Karnataka",
+      "We launched a new program with the Piramal Foundation in Jhunjhunu, Rajasthan",
+      "We developed & launched our 3-levels tinkering curriculum & EdApp LMS across all 10,000+ ATLs in India",
+    ],
+  },
+  {
+    year: 2024,
+    kind: "list",
+    items: [
+      "We launched our first IGNITE incubator cohort for young innovators across rural Tamil Nadu",
+    ],
+  },
+  {
+    year: 2025,
+    kind: "list",
+    items: [
+      "We became anchors for the pan-India STEM initiative under the Shikshagraha movement",
+      "We launched the MakerGaon Fellowship in rural Maharashtra",
+      "We launched a district-wide Nashik program with 12 high-end makerspaces",
+    ],
+  },
+  {
+    year: 2026,
+    kind: "note",
+    text: "We published the Discovery Diary, our first at-home intervention for hands-on learning for children",
+  },
 ];
 
 export default function StoryCanvas() {
