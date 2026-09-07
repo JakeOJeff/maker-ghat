@@ -9,6 +9,12 @@
  *
  * Output: public/assets/hero-3d-printer.jpg    the hero photograph (1:366)
  *         public/assets/story-illustration.jpg the illustrated timeline
+ *         public/assets/story/*.jpg            the individual photographs
+ *
+ * The individual photographs are cut back out of the finished illustration for
+ * the linear layout used below 1200px, where the composition cannot survive.
+ * Their boxes were found by local texture: a photograph has high per-cell
+ * variance, while the doodles, the dashed path and the cream ground are flat.
  *
  * The illustration crop starts at x 33 rather than the cream panel edge at
  * x 80, because the paper-plane doodle in "Group 424" overhangs the panel.
@@ -22,6 +28,7 @@
  */
 
 import { statSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
 import sharp from "sharp";
 
 const SRC = "public/assets/raw/_fullpage.jpeg";
@@ -57,11 +64,42 @@ const knockouts = [...TEXT_BLOCKS, ...YEAR_MARKERS].map(([x, y, w, h]) => ({
   top: y - PLATE.top,
 }));
 
+/**
+ * The twelve photographs, in illustration coordinates (page coordinates less
+ * PLATE.left / PLATE.top). The first three belong to the three narrative
+ * sections; the rest sit along the timeline, one per year. Years are matched
+ * to photographs by position along the path, which the design does not state
+ * explicitly - see README.
+ */
+const PHOTOS = [
+  ["mission", 1040, 72, 272, 168],
+  ["why", 112, 328, 344, 216],
+  ["how", 672, 648, 584, 400],
+  ["y2018", 104, 1216, 296, 224],
+  ["y2019", 936, 1288, 320, 152],
+  ["y2021", 240, 1560, 168, 240],
+  ["y2020", 968, 1584, 272, 224],
+  ["y2022", 376, 1872, 264, 200],
+  ["y2023", 960, 2056, 288, 184],
+  ["y2025", 112, 2224, 368, 328],
+  ["y2024", 920, 2360, 336, 200],
+  ["y2026", 936, 2704, 288, 216],
+];
+
 const jpeg = { quality: 90, chromaSubsampling: "4:4:4" };
 
 await sharp(SRC).extract(HERO).jpeg(jpeg).toFile(`${OUT}/hero-3d-printer.jpg`);
 await sharp(SRC).extract(PLATE).composite(knockouts).jpeg({ ...jpeg, quality: 88 })
   .toFile(`${OUT}/story-illustration.jpg`);
+
+await mkdir(`${OUT}/story`, { recursive: true });
+for (const [name, left, top, width, height] of PHOTOS) {
+  await sharp(`${OUT}/story-illustration.jpg`)
+    .extract({ left, top, width, height })
+    .jpeg(jpeg)
+    .toFile(`${OUT}/story/${name}.jpg`);
+}
+console.log(`story/*.jpg`.padEnd(26) + ` ${PHOTOS.length} photographs`);
 
 for (const file of ["hero-3d-printer.jpg", "story-illustration.jpg"]) {
   const { width, height } = await sharp(`${OUT}/${file}`).metadata();

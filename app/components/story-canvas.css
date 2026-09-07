@@ -418,20 +418,192 @@
 .story-years__item--y2025 { left: calc(234 * var(--u)); top: calc((2902 - var(--y0)) * var(--u)); }
 .story-years__item--y2026 { left: calc(665 * var(--u)); top: calc((3383 - var(--y0)) * var(--u)); }
 
-/* =============================================================
-   Tablet and mobile
-   The header shrinks at these widths, so the stage origin has to
-   follow it; --u keeps scaling the composition proportionally.
-   ============================================================= */
-
-@media (max-width: 1024px) {
-  .story__stage {
-    --y0: 88; /* header height at this breakpoint */
-  }
+/* The per-year photographs and the section photographs exist only for
+   the linear layout; above 1200 the single illustration carries them
+   all. They are lazy, so hiding them here also stops the fetch. */
+.story__section-photo,
+.story-years__photo {
+  display: none;
 }
 
-@media (max-width: 768px) {
+/* =============================================================
+   Tablet and mobile
+   Below 1200 the Figma composition stops working: --u has shrunk the
+   body copy under 15px and the year chips under a thumb's width. The
+   stage is therefore relaid as a single column at real pixel sizes -
+   --u becomes 1px, every absolute coordinate is dropped, and the flat
+   illustration gives way to the photographs cut back out of it, one
+   above each year. Only one of those two sets is ever fetched: the
+   hidden set is lazy, so it never intersects the viewport.
+   ============================================================= */
+
+@media (max-width: 1200px) {
+  /* ---- The stage becomes an ordinary column ---- */
   .story__stage {
-    --y0: 72.594; /* header height at this breakpoint */
+    --u: 1px;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    margin-inline: 0;
+    padding-bottom: var(--space-68);
+  }
+
+  /* The cream panel drops out of the flow and becomes the ground the
+     whole column sits on. Everything else is positioned so it paints
+     over it. */
+  .story__panel {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .story__title,
+  .story__hero,
+  .story__section,
+  .story-years {
+    position: relative;
+    left: auto;
+    top: auto;
+    z-index: 1;
+  }
+
+  /* The tabs are desktop navigation; the column drops them. */
+  .story-tabs {
+    display: none;
+  }
+
+  /* ---- Narrative column ---- */
+  /* One reading column, centred, so the layout does not sprawl into
+     over-long lines on a wide tablet. */
+  .story__title,
+  .story__hero,
+  .story__section,
+  .story-years {
+    width: 100%;
+    max-width: calc(688 * var(--u));
+    margin-inline: auto;
+    padding-inline: var(--space-24);
+  }
+
+  .story__title {
+    margin-top: var(--space-40);
+    font-size: clamp(28px, 4.4vw, 48px);
+    line-height: 1.2;
+  }
+
+  .story__hero {
+    height: auto;
+    margin-top: var(--space-24);
+  }
+
+  .story__hero-image {
+    height: auto;
+  }
+
+  .story__illustration {
+    display: none;
+  }
+
+  .story__section {
+    margin-top: var(--space-40);
+  }
+
+  /* The crops come out of a 1:1 render of a 1440-wide design, so they
+     are small. Never scale one past twice its own pixels - past that
+     it is visibly soft - and centre it when it is narrower than the
+     column. */
+  .story__section-photo,
+  .story-years__photo {
+    display: block;
+    width: 100%;
+    max-width: calc(var(--photo-w, 100%) * 2);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .story__section-photo {
+    margin-bottom: var(--space-20);
+  }
+
+  .story__heading,
+  .story__section--how .story__heading {
+    width: auto;
+    font-size: clamp(24px, 3.4vw, 36px);
+    line-height: 1.25;
+  }
+
+  /* ---- Timeline: the path becomes a rail down the left ---- */
+  .story-years {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-30);
+    margin-top: var(--space-40);
+    padding-left: calc(var(--space-24) + 34 * var(--u));
+  }
+
+  .story-years::before,
+  .story-years::after {
+    content: "";
+    position: absolute;
+    top: calc(20 * var(--u));
+    bottom: calc(20 * var(--u));
+  }
+
+  /* The 10px green band of the design's path... */
+  .story-years::before {
+    left: var(--space-24);
+    width: calc(10 * var(--u));
+    border-radius: calc(5 * var(--u));
+    background-color: var(--color-green-600);
+  }
+
+  /* ...and the cream dashes that run down the middle of it. */
+  .story-years::after {
+    left: calc(var(--space-24) + 4 * var(--u));
+    width: calc(2 * var(--u));
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--color-neutral-50) 0 calc(4 * var(--u)),
+      transparent calc(4 * var(--u)) calc(8 * var(--u))
+    );
+  }
+
+  .story-years__item,
+  .story-years__item--y2018 {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+  }
+
+  .story-years__photo {
+    margin-bottom: var(--space-12);
+    border-radius: calc(20 * var(--u));
+  }
+
+  .story-years__marker {
+    height: calc(64 * var(--u));
+    padding: var(--space-14) var(--space-20);
+  }
+
+  .story-years__value {
+    width: auto;
+    margin-left: 0;
+    font-size: clamp(24px, 3.4vw, 36px);
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .story-years__chevron {
+    margin-left: auto;
+  }
+
+  .story-years__panel,
+  .story-years__item--y2018 .story-years__panel {
+    width: 100%;
   }
 }

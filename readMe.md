@@ -56,6 +56,10 @@ Below that, every value shrinks by the same factor and the composition stays
 proportionally identical at any width. Coordinates are written as literal Figma
 numbers (`left: calc(133 * var(--u))`) so each rule is traceable to the design.
 
+That holds down to **1200px**. Below it the same scaling would put the body
+copy under 15px and the year chips under a thumb's width, so the stage is
+relaid as a single column — see *Responsive* below.
+
 The header and footer are ordinary reflowing components and adapt at the
 `1024px` and `768px` breakpoints.
 
@@ -69,6 +73,7 @@ of the 1:1 page render, taken at their Figma coordinates:
 | --- | --- | --- |
 | `hero-3d-printer.jpg` | `1:366` | x 80, y 391, 1281 × 393 |
 | `story-illustration.jpg` | timeline composition | x 33, y 784, 1328 × 3145 |
+| `story/*.jpg` | 12 photographs | cut back out of the illustration |
 
 The illustration starts at x 33 rather than at the panel edge because the
 paper-plane doodle in "Group 424" overhangs the cream panel. Every text block
@@ -87,6 +92,47 @@ days, but they are **not used by the page** — around 40MB of unreferenced file
 currently sit inside `public/`, where Next.js serves them. Moving that folder
 somewhere outside `public/` (for example `design/figma-raw/`) would keep the
 provenance without shipping it.
+
+## Responsive
+
+The design is desktop-only, so everything below 1200px is derived rather than
+drawn. There are two layouts:
+
+**Above 1200px** the Figma composition, 1:1 at 1440 and scaled by `--u` below
+that. One flat illustration carries every photograph, doodle and the dashed
+path between them.
+
+**At or below 1200px** the stage becomes an ordinary column: `--u` is pinned to
+`1px`, every absolute coordinate is dropped, the tab strip is dropped, and the
+content is capped to a 688px reading column. The
+illustration is replaced by the twelve photographs cut back out of it — three
+above the narrative sections, nine down a vertical timeline where the dashed
+green path becomes a rail and each year chip is a full-width accordion row.
+
+Only one of the two image sets is ever fetched. Both are `loading="lazy"` and
+the unused set is `display: none`, so it never intersects the viewport and is
+never requested. Measured with the network panel, cache cleared, scrolling the
+whole page at each width:
+
+| viewport | illustration | year photographs | total image bytes |
+| --- | --- | --- | --- |
+| 1440 | 547KB | none fetched | 633KB |
+| 900 | not fetched | 12 × 339KB | 425KB |
+| 375 | not fetched | 12 × 338KB | 424KB |
+
+The crops come out of a 1:1 render of a 1440-wide design, so they are small —
+272 × 168 for the smallest. No crop is ever scaled past twice its own pixels
+(`max-width: calc(var(--photo-w) * 2)`), because past that it is visibly soft;
+a crop narrower than the column is centred in it instead of stretched.
+
+Sharper versions of these photographs do exist, as the original camera-
+resolution exports in `public/assets/raw/` (several are 4000px wide). They are
+**not** wired up: matching them to the crops automatically failed, because the
+illustration's copies are silhouetted cut-outs with their backgrounds removed
+and their colour drained, which correlates with nothing. Only `how` matched
+confidently (`img17.png`, 0.79). Mapping the other eleven by hand and
+re-exporting them at ~800px would sharpen the mobile layout and cut its weight
+at the same time.
 
 ## Deviations from the Figma file
 
