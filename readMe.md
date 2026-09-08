@@ -10,6 +10,16 @@ npm start
 npm run lint
 ```
 
+## Development
+
+### Approach
+
+Used a Figma MCP to extract all the images and content, and directly implemented the measurements from Figma. The Desktop view mainly features a singular story jpg so that it reduces loading paint time and better optimize because of the lack of multiple images loading simultaneously. This method cannot be used for Mobile or Tablet as it will just scale down, so instead, I split the images for Mobile and Tablet, discarded design images ( like playful arrows, circles ) and only kept the pathline and the corresponding community images in one vertical scroll. Made the Year buttons clickable to expand to show the content as well.
+
+### Assumptions
+
+I assumed how the mobile responsivness should look like as only the desktop version was shown. Also near the desktop design, I saw a Year number and their corresponding content, which I assumed to be a dropdown measure, hence I implemented that as well.
+
 ## Stack
 
 Next.js App Router + hand-written CSS. There is **no CSS framework** — Tailwind
